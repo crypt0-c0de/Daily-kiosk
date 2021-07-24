@@ -1,11 +1,13 @@
 package nita.krishna.dailykiosk
 
 import android.content.Context
+import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.browser.customtabs.CustomTabsIntent
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 
@@ -22,9 +24,10 @@ class NewsAdapter(val context: Context, val articles: List<Article>) : RecyclerV
         holder.newsTitle.text = article.title
         holder.newsDescription.text = article.description
         Glide.with(context).load(article.urlToImage).into(holder.newsImage)
-
         holder.itemView.setOnClickListener {
-
+            val builder = CustomTabsIntent.Builder()
+            var customTabsIntent = builder.build()
+            customTabsIntent.launchUrl(context, Uri.parse(article.url))
         }
     }
 
